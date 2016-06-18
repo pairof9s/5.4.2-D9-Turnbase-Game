@@ -21,7 +21,7 @@ Good.prototype.goodMoves = function(){
 function Bad(config){
   config = config || {};
   $.extend(this, config);
-  this.hasMoves = true;
+  this.hasMoves = false;
 }
 
 Bad.prototype = new Dancer();

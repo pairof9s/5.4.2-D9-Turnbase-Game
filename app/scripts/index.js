@@ -5,45 +5,68 @@ var _ = require('underscore');
 var models = require('./models');
 var detailTemplate = require('../templates/player-detail.hbs');
 var listTemplate = require('../templates/player-list.hbs');
-var Good = require('./models').Good;
-var Bad = require('./models').Bad;
 
 // Wait till DOM is ready
 $(function(){
-  var favoritePlayer = 2;
+  var favoritePlayer;
 
 console.log('favoritePlayer: ', favoritePlayer);
 // console.log(models);
 
   var hero = [
-    new models.Good({name: 'John', image: ''}),
-    new models.Good({name: 'good2', image: ''}),
-    new models.Good({name: 'good3', image: ''})
+    new models.Good({name: 'John', image: '../app/images/John.jpg', moves: 'http://yesletsdance.tumblr.com/post/51776966487', 'score': Math.random()}),
+    new models.Good({name: 'Michael', image: '../app/images/Michael.jpg', moves: 'http://www.gifbay.com/gif/moonwalk-49226/', 'score': Math.random()}),
+    new models.Good({name: 'Madonna', image: '../app/images/Madonna.jpg', moves: 'http://vaguesalvaje.tumblr.com/post/73658595121', 'score': Math.random()})
   ];
 
   var enemy = [
-    new models.Bad({name: 'Bad1', image: ''}),
-    new models.Bad({name: 'Bad2', image: ''}),
-    new models.Bad({name: 'Elaine', image: ''})
+    new models.Bad({name: 'Chris', image: '../app/images/Chris.jpg', moves: 'http://www.elevenwarriors.com/forum/anything-else/2014/02/33549/best-site-gifs', 'score': Math.random()}),
+    new models.Bad({name: 'Napoleon', image: '../app/images/Napoleon.jpg', moves: 'http://forever-sinned.tumblr.com/post/12006410946', 'score': Math.random()}),
+    new models.Bad({name: 'Elaine', image: '../app/images/Elain.jpg', moves: 'http://televisionwithoutpity.tumblr.com/post/58744599970/we-will-never-be-tired-of-elaine-dancing-never', 'score': Math.random()})
   ];
-// console.log(enemy);
 
+  var context = {'hero': hero};
+    $('.js-hero').html(listTemplate(context));
+
+    $('.js-hero-select').on('click', function(event){
+      event.preventDefault();
+      var $myDancerImage = $(this);
+      var myDancerName = $myDancerImage.data('name');
+      var myDancerPic = $myDancerImage.data('image');
+      favoritePlayer = _.filter(hero, {'name': myDancerName, 'image': myDancerPic})[0];
+    });
+
+    $('.js-dancer-select').on('click', function(event){
+      event.preventDefault();
+      if(favoritePlayer){
+        alert('My name is ' + favoritePlayer.name + ' and I am ready to dance ' + favoritePlayer.speak());
+        window.setTimeout(function(){
+          var dancerFace = favoritePlayer.showMyFace('<img src="/images/John.jpg" />');
+          alert('Check me out... ' + dancerFace);
+        }, 2000);
+      }else{
+        alert('Select a dancer first');
+      }
+    });
+
+  });
 // creat event trigger here
-
-var John1 = new Good({'score': Math.random()});
-var good2 = new Good({'score': Math.random()});
-var good3 = new Good({'score': Math.random()});
-
-var bad1 = new Bad({'score': Math.random()});
-var bad2 = new Bad({'score': Math.random()});
-var bad3 = new Bad({'score': Math.random()});
-console.log(John1);
-
-console.log('bad three', bad3);
-
-});
-
-// console.log(Good);
+//
+// var John = new Good({'name': 'John', image: '../images/John.jpg', 'score': Math.random()});
+// var good2 = new Good({'score': Math.random()});
+// var good3 = new Good({'score': Math.random()});
+//
+// var Chris = new Bad({'name': 'Chris', 'score': Math.random()});
+// var bad2 = new Bad({'score': Math.random()});
+// var bad3 = new Bad({image: '../images/Elaine.jpg', 'score': Math.random()});
+// console.log(John);
+//
+// console.log(Chris);
+// console.log('bad #3', bad3);
+//
+// });
+//
+// // console.log(Good);
 // console.log(Bad);
 // for now, just doing a single math.random for winner...this is bonus method
 //skill level 1 - 3, 3 is the best
