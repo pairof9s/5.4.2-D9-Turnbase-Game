@@ -1,6 +1,7 @@
-{{#each hero}}
-  <div class="col-md-6">
-    <img class="js-hero-select" src="{{image}}" alt="{{name}}" data-name="{{name}}"/><br/>
-    <h3>{{name}}</h3>
-  </div>
-{{/each}}
+<select class="form-control">
+  <option value="">Choose Your Dancer</option>
+    {{#each good}}
+      <option class="hero-select" value="{{@index}}" name="{{name}}">
+        <h3>{{name}}</h3></option>
+    {{/each}}
+</select>

@@ -4,35 +4,43 @@
    <meta charset="utf-8">
    <meta name="viewport" content="width=device-width, initial-scale=1, minimal-ui">
    <title>5.4 Turnbase Game Collaboration</title>
+   <!-- Stylesheets -->
    <link rel="stylesheet" href="css/app.css">
+   <link href='https://fonts.googleapis.com/css?family=Monoton' rel='stylesheet' type='text/css'>
  </head>
  <body>
 
    <div class="container">
-     <div class="row">
-       <div class="col-md-12">
-         <h1>Ready Player One!</h1>
-
-         <h2>Dance, Dance Nation!</h2>
-         <h3 class="js-hero">Let's Begin!</h3>
+    <section class="row">
+       <div class="col-md-offset-1 col-md-10">
+         <div>
+           <h1>The Ultimate Dance Off!</h1>
+           <h2>Hey, Classy Ladies and Macho Men...</h2>
+         </div>
+         <div class="instruct">
+           <h4>Let's Do The Hustle</h4>
+           <p>Select your favorite dancer from the menu. Then click the "Boogie On!" button to start.</p>
+           <p>You'll be pitted against some strong challengers. So stretch your legs, get your hair perfect, and put your dancing shoes on. Good luck!</p>
+         </div>
        </div>
-     </div>
-   </div>
-<!-- action button to start dance off -->
-     <button class="btn btn-success js-dancer-select">Dance Off!</button>
-
-
-<!-- dropdown to choose player one -->
-
-   <select class="btn btn-default dropdown-toggle" aria-labelledby="dropdownMenu1">
-     <option class="player 1" value="">Choose Your Player</option>
-     <option class="player 2" value="">John</option>
-     <option class="player 3" value="">Michael</option>
-     <option class="player 3" value="">Madonna</option>
-   </select>
-
-<!-- end dropdown to choose player one -->
+    </section>
+    <section class="row">
+        <div class="js-contestants col-md-offset-2 col-md-8">
+          <div class="col-md-offset-2 col-md-4">
+            <h3>Dancers</h3>
+            <div class="hero-select"></div>
+          </div>
+          <div class="col-md-4">
+            <h3>Challengers</h3>
+          </div>
+        </div>
+        <div class="col-md-offset-3 col-md-6" id="buttonspec">
+          <button class="btn btn-danger js-dancer-select">Boogie On!</button>
+        </div>
+    </section>
+  </div>
 
    <script src="js/bundle.js"></script>
+
  </body>
 </html>

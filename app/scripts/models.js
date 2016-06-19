@@ -1,82 +1,70 @@
 var $ = require('jquery');
-// this is where we create out constructors
 
-// This will "call" the action function
-function Dancer (config){
-  config = config || {};
-}
 
 //This is the top level dancer prototype, everything feeds into this
-function Good(config){
+function Dancer(config){
   config = config || {};
   $.extend(this, config);
-  this.hasMoves = true;
+  this.health = config.healt || 60;
+  this.name = config.name;
+  this.image = config.image;
 }
 
-Good.prototype = new Dancer();
-Good.prototype.goodMoves = function(){
-  return "gulp";
+Dancer.prototype.dance = function(victim) {
+  var damage = _.random(20);
+  victim.health = victim.health - damage;
 };
 
-function Bad(config){
-  config = config || {};
-  $.extend(this, config);
-  this.hasMoves = false;
+function Hero(config){
+  Dancer.call(this, config);
 }
 
-Bad.prototype = new Dancer();
-Bad.prototype.discoMoves = function(){
-  return "yell";
-};
+Hero.prototype = new Dancer();
+
+
+function Enemy(config){
+  Dancer.call(this, config);
+}
+
+Enemy.prototype = new Dancer();
 
  module.exports = {
-   Good: Good,
-   Bad: Bad
+   'Hero': Hero,
+   'Enemy': Enemy
 };
-// function Kitten(config){
-//   CuteAnimals.call(this, config);
-// }
-// Kitten.prototype = new CuteAnimals();
-// Kitten.prototype.pur = function(){
-//   return 'purrrrrRrrrrRrrrr';
-// };
 
-// function goodMoves(config){
-//   player.call(this, config);
-//
-// }
 
-//
-// Better.prototype.betterMoves =
-//
-// // Example code
-// function CuteAnimals(config){
-//   config = config || {};
-//   $.extend(this, config);
-//   this.isCute = true;
+// Code from Kurt whose game is like ours...
+
+// function Fighters(config){
+//  config = config || {};
+//  $.extend(this, config);
+//  this.health = config.health || 60;
+//  this.name = config.name;
+//  this.image = config.image;
+//  //this.battleCry = config.battleCry;
 // }
-// CuteAnimals.prototype.bigEyes = true;
-// CuteAnimals.prototype.playWithToy = function(sound){
-//   return sound + ', ' + sound;
+//
+// Fighters.prototype.attack = function(victim) {
+//  var damage = _.random(20);
+//  victim.health = victim.health - damage;
 // };
 //
-// function Puppy(config){
-//   CuteAnimals.call(this, config);
-// }
-// Puppy.prototype = new CuteAnimals();
-// Puppy.prototype.speak = function(){
-//   return 'tiny bark';
-// };
 //
-// function Kitten(config){
-//   CuteAnimals.call(this, config);
+// function Hero(config){
+//  Fighters.call(this, config);
 // }
-// Kitten.prototype = new CuteAnimals();
-// Kitten.prototype.pur = function(){
-//   return 'purrrrrRrrrrRrrrr';
-// };
+//
+// Hero.prototype = new Fighters();
+//
+// function Enemy(config){
+//  Fighters.call(this, config);
+// }
+//
+// Enemy.prototype = new Fighters();
+//
 //
 // module.exports = {
-//   'player': Puppy,
-//   'enemy': Kitten
+//  'Hero': Hero,
+//  'Enemy': Enemy
 // };
