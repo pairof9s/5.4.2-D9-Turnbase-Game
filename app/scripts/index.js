@@ -3,7 +3,8 @@ var _ = require('underscore');
 
 
 var models = require('./models');
-var detailTemplate = require('../templates/player-detail.hbs');
+//var detailTemplate = require('../templates/player-detail.hbs');
+var detailTemplate = require('../templates/player-move.hbs');
 var listTemplate = require('../templates/player-list.hbs');
 
 // Wait till DOM is ready
@@ -15,19 +16,19 @@ $(function(){
     new models.Hero(
       {name: 'John Travolta',
       image: '../app/images/John.jpg',
-      moves: 'http://yesletsdance.tumblr.com/post/51776966487',
+      moves: '../app/images/John-dance.gif',
       score: Math.random()
     }),
     new models.Hero(
       {name: 'Michael Jackson',
       image: '../app/images/Michael.jpg',
-      moves: 'http://www.gifbay.com/gif/moonwalk-49226/',
+      moves: '../app/images/Michael-dance.gif',
       score: Math.random()
     }),
     new models.Hero(
       {name: 'Madonna',
       image: '../app/images/Madonna.jpg',
-      moves: 'http://vaguesalvaje.tumblr.com/post/73658595121',
+      moves: '../app/images/Madonna-dance.gif',
       score: Math.random()
     })
   ];
@@ -36,29 +37,28 @@ $(function(){
     new models.Enemy(
       {name: 'Chris Farley',
       image: '../app/images/Chris.jpg',
-      moves: 'http://www.elevenwarriors.com/forum/anything-else/2014/02/33549/best-site-gifs',
+      moves: '../app/images/Chris-dance.gif',
       score: Math.random()
     }),
     new models.Enemy(
       {name: 'Napoleon Dynamite', image: '../app/images/Napoleon.jpg',
-      moves: 'http://forever-sinned.tumblr.com/post/12006410946',
+      moves: '../app/images/Napoleon-dance.gif',
       score: Math.random()
     }),
     new models.Enemy(
       {name: 'Elaine Benes',
       image: '../app/images/Elaine.jpg',
-      moves: 'http://televisionwithoutpity.tumblr.com/post/58744599970/we-will-never-be-tired-of-elaine-dancing-never',
+      moves: '../app/images/Elaine-dance.gif',
       score: Math.random()
     })
   ];
 
-
+// Character "Hero" seclection and "Enemy" random selection
   var selectedHero;
   var selectedEnemy;
 
   var context = {'good' : good};
   $('.hero-select').html(listTemplate(context));
-    event.preventDefault();
 
   $('.form-control').on('change', function(event){
     event.preventDefault();
@@ -79,5 +79,34 @@ $(function(){
     var randomEnemyIndex = Math.floor(Math.random() * 3);
     return bad[randomEnemyIndex];
   }
+
+});
+
+
+// $('#boogie-button').click(function(val){
+//  if (Math.random(val) >= 65){
+//    alert("They got some mooooooooves");
+//  }
+// });
+//
+//
+// $('.boogie-button').click(function() {
+//    $('.score').html(function(i, val) {return val - Math.floor(Math.random()* -11);});
+// });
+
+var clickTimes = [];
+
+$('.click-button').click(function() {
+    clickTimes.push(new Date().getTime());
+    if (new Date().getTime() - clickTimes[0] < 10000) {
+        $('.score').html(function(i, val) {
+            return val - Math.floor(Math.random()* -11);
+        });
+    }
+    else {
+        $(".score").html("Time's up! We have a winner...");
+        clickTimes.length = 0;
+        return alert("Your dancer won...it wasn't even close!!");
+    }
 
 });
