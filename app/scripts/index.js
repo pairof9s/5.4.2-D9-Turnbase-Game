@@ -93,38 +93,32 @@ $(function(){
     return bad[randomEnemyIndex];
   }
 
+  var clickTimes = [];
+  var audio = new Audio('../app/images/applause.mp3');
+
+  $('.click-button').click(function() {
+      $('.character-' + selectedHero.id).attr('src', selectedHero.moves);
+      $('.character-' + selectedEnemy.id).attr('src', selectedEnemy.moves);
+      clickTimes.push(new Date().getTime());
+      if (new Date().getTime() - clickTimes[0] < 8000) {
+          $('.score').html(function(i, val) {
+              return val - Math.floor(Math.random()* -11);
+          });
+      }
+      else {
+          $('.score').html(" Time's up! We have a winner... ");
+          clickTimes.length = 0;
+          //return alert("Your dancer won...it wasn't even close!!");
+          if(alert("Your dancer won...it wasn't even close!!")){}
+          else window.location.reload();
+      }
+      return audio.play();
+  });
+
 });
 
 
-// $('#boogie-button').click(function(val){
-//  if (Math.random(val) >= 65){
-//    alert("They got some mooooooooves");
-//  }
-// });
-//
-//
-// $('.boogie-button').click(function() {
+// Our original click-button "vote" calculation
+// $('.click-button').click(function() {
 //    $('.score').html(function(i, val) {return val - Math.floor(Math.random()* -11);});
 // });
-
-var clickTimes = [];
-var audio = new Audio('../app/images/applause.mp3');
-
-$('.click-button').click(function() {
-    $('.character-' + selectedHero.id).attr('src', selectedHero.moves);
-    clickTimes.push(new Date().getTime());
-    if (new Date().getTime() - clickTimes[0] < 10000) {
-        $('.score').html(function(i, val) {
-            return val - Math.floor(Math.random()* -11);
-
-        });
-    }
-    else {
-        $('.score').html("Time's up! We have a winner... ", val);
-        clickTimes.length = 0;
-        //return alert("Your dancer won...it wasn't even close!!");
-        if(alert("Your dancer won...it wasn't even close!!")){}
-        else window.location.reload();
-    }
-    return audio.play();
-});
