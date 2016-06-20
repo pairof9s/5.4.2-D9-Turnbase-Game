@@ -14,19 +14,25 @@ $(function(){
 // Main characters
   var good = [
     new models.Hero(
-      {name: 'John Travolta',
+      {
+      id: 1,
+      name: 'John Travolta',
       image: '../app/images/John.jpg',
       moves: '../app/images/John-dance.gif',
       score: Math.random()
     }),
     new models.Hero(
-      {name: 'Michael Jackson',
+      {
+      id: 2,
+      name: 'Michael Jackson',
       image: '../app/images/Michael.jpg',
       moves: '../app/images/Michael-dance.gif',
       score: Math.random()
     }),
     new models.Hero(
-      {name: 'Madonna',
+      {
+      id: 3,
+      name: 'Madonna',
       image: '../app/images/Madonna.jpg',
       moves: '../app/images/Madonna-dance.gif',
       score: Math.random()
@@ -35,18 +41,25 @@ $(function(){
 
   var bad = [
     new models.Enemy(
-      {name: 'Chris Farley',
+      {
+      id: 4,
+      name: 'Chris Farley',
       image: '../app/images/Chris.jpg',
       moves: '../app/images/Chris-dance.gif',
       score: Math.random()
     }),
     new models.Enemy(
-      {name: 'Napoleon Dynamite', image: '../app/images/Napoleon.jpg',
+      {
+      id: 5,
+      name: 'Napoleon Dynamite',
+      image: '../app/images/Napoleon.jpg',
       moves: '../app/images/Napoleon-dance.gif',
       score: Math.random()
     }),
     new models.Enemy(
-      {name: 'Elaine Benes',
+      {
+      id: 6,
+      name: 'Elaine Benes',
       image: '../app/images/Elaine.jpg',
       moves: '../app/images/Elaine-dance.gif',
       score: Math.random()
@@ -95,18 +108,23 @@ $(function(){
 // });
 
 var clickTimes = [];
+var audio = new Audio('../app/images/applause.mp3');
 
 $('.click-button').click(function() {
+    $('.character-' + selectedHero.id).attr('src', selectedHero.moves);
     clickTimes.push(new Date().getTime());
     if (new Date().getTime() - clickTimes[0] < 10000) {
         $('.score').html(function(i, val) {
             return val - Math.floor(Math.random()* -11);
+
         });
     }
     else {
-        $(".score").html("Time's up! We have a winner...");
+        $('.score').html("Time's up! We have a winner... ", val);
         clickTimes.length = 0;
-        return alert("Your dancer won...it wasn't even close!!");
+        //return alert("Your dancer won...it wasn't even close!!");
+        if(alert("Your dancer won...it wasn't even close!!")){}
+        else window.location.reload();
     }
-
+    return audio.play();
 });

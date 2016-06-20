@@ -16,19 +16,25 @@ $(function(){
 // Main characters
   var good = [
     new models.Hero(
-      {name: 'John Travolta',
+      {
+      id: 1,
+      name: 'John Travolta',
       image: '../app/images/John.jpg',
       moves: '../app/images/John-dance.gif',
       score: Math.random()
     }),
     new models.Hero(
-      {name: 'Michael Jackson',
+      {
+      id: 2,
+      name: 'Michael Jackson',
       image: '../app/images/Michael.jpg',
       moves: '../app/images/Michael-dance.gif',
       score: Math.random()
     }),
     new models.Hero(
-      {name: 'Madonna',
+      {
+      id: 3,
+      name: 'Madonna',
       image: '../app/images/Madonna.jpg',
       moves: '../app/images/Madonna-dance.gif',
       score: Math.random()
@@ -37,18 +43,25 @@ $(function(){
 
   var bad = [
     new models.Enemy(
-      {name: 'Chris Farley',
+      {
+      id: 4,
+      name: 'Chris Farley',
       image: '../app/images/Chris.jpg',
       moves: '../app/images/Chris-dance.gif',
       score: Math.random()
     }),
     new models.Enemy(
-      {name: 'Napoleon Dynamite', image: '../app/images/Napoleon.jpg',
+      {
+      id: 5,
+      name: 'Napoleon Dynamite',
+      image: '../app/images/Napoleon.jpg',
       moves: '../app/images/Napoleon-dance.gif',
       score: Math.random()
     }),
     new models.Enemy(
-      {name: 'Elaine Benes',
+      {
+      id: 6,
+      name: 'Elaine Benes',
       image: '../app/images/Elaine.jpg',
       moves: '../app/images/Elaine-dance.gif',
       score: Math.random()
@@ -97,20 +110,25 @@ $(function(){
 // });
 
 var clickTimes = [];
+var audio = new Audio('../app/images/applause.mp3');
 
 $('.click-button').click(function() {
+    $('.character-' + selectedHero.id).attr('src', selectedHero.moves);
     clickTimes.push(new Date().getTime());
     if (new Date().getTime() - clickTimes[0] < 10000) {
         $('.score').html(function(i, val) {
             return val - Math.floor(Math.random()* -11);
+
         });
     }
     else {
-        $(".score").html("Time's up! We have a winner...");
+        $('.score').html("Time's up! We have a winner... ", val);
         clickTimes.length = 0;
-        return alert("Your dancer won...it wasn't even close!!");
+        //return alert("Your dancer won...it wasn't even close!!");
+        if(alert("Your dancer won...it wasn't even close!!")){}
+        else window.location.reload();
     }
-
+    return audio.play();
 });
 
 },{"../templates/player-list.hbs":3,"../templates/player-move.hbs":4,"./models":2,"jquery":25,"underscore":26}],2:[function(require,module,exports){
@@ -216,8 +234,10 @@ var HandlebarsCompiler = require('hbsfy/runtime');
 module.exports = HandlebarsCompiler.template({"compiler":[7,">= 4.0.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : {}, alias2=helpers.helperMissing, alias3="function", alias4=container.escapeExpression;
 
-  return "<div class=\"col-md-offset-2 col-md-4\">\n  <img src=\""
-    + alias4(((helper = (helper = helpers.moves || (depth0 != null ? depth0.moves : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"moves","hash":{},"data":data}) : helper)))
+  return "<div class=\"col-md-offset-2 col-md-4\">\n  <img class=\"character-"
+    + alias4(((helper = (helper = helpers.id || (depth0 != null ? depth0.id : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"id","hash":{},"data":data}) : helper)))
+    + "\" src=\""
+    + alias4(((helper = (helper = helpers.image || (depth0 != null ? depth0.image : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"image","hash":{},"data":data}) : helper)))
     + "\" alt=\""
     + alias4(((helper = (helper = helpers.name || (depth0 != null ? depth0.name : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"name","hash":{},"data":data}) : helper)))
     + "\" /><br/>\n  <h3>"
